@@ -1,42 +1,65 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Colors
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+BLUE="\033[0;34m"
+CYAN="\033[0;36m"
+BOLD="\033[1m"
+RESET="\033[0m"
+
 APP_DIR="/var/www/chatdku"
 BACKUP_DIR="/var/www/chatdku_webapp_backups"
 BUILD_DIR="out"  # where `npm run build` outputs
 
-cd /path/to/your/project
+# cd /path/to/frontend
 
-# 1) Run tests
-echo "Running tests..."
-npm run test
+echo -e "${BLUE}${BOLD}==> Running tests...${RESET}"
+if npm run test; then
+  echo -e "${GREEN}${BOLD}==> Tests passed.${RESET}"
+else
+  echo -e "${RED}${BOLD}==> Tests failed.${RESET}"
+  read -r -p "$(echo -e "${YELLOW}Tests failed. Deploy anyway? [y/N]: ${RESET}")" force
+  case "$force" in
+    [Yy]* )
+      echo -e "${YELLOW}${BOLD}==> Proceeding with deploy despite failing tests.${RESET}"
+      ;;
+    * )
+      echo -e "${YELLOW}${BOLD}==> Aborting deploy because tests failed.${RESET}"
+      exit 1
+      ;;
+  esac
+fi
 
 echo
-read -r -p "Tests passed. Deploy this build? [y/N]: " answer
+read -r -p "$(echo -e "${CYAN}Deploy this build? [y/N]: ${RESET}")" answer
 case "$answer" in
-  [Yy]* ) echo "Proceeding with deploy...";;
-  * ) echo "Aborting deploy."; exit 0;;
+  [Yy]* )
+    echo -e "${GREEN}${BOLD}==> Proceeding with deploy...${RESET}"
+    ;;
+  * )
+    echo -e "${YELLOW}${BOLD}==> Aborting deploy.${RESET}"
+    exit 0
+    ;;
 esac
 
-# 2) Build
-echo "Running build..."
+echo -e "${BLUE}${BOLD}==> Running build...${RESET}"
 npm run build
 
-# 3) Create backup of currently deployed version
 timestamp="$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$BACKUP_DIR"
 
 if [ -d "$APP_DIR" ]; then
-  echo "Creating backup at ${BACKUP_DIR}/${timestamp}/"
+  echo -e "${BLUE}${BOLD}==> Creating backup at ${BACKUP_DIR}/${timestamp}/${RESET}"
   sudo rsync -av --delete "$APP_DIR"/ "${BACKUP_DIR}/${timestamp}/"
 else
-  echo "Warning: ${APP_DIR} does not exist or is not a directory; skipping backup."
+  echo -e "${YELLOW}${BOLD}==> Warning:${RESET} ${YELLOW}${APP_DIR} does not exist; skipping backup.${RESET}"
 fi
 
-# 4) Deploy new build
-echo "Deploying new build to ${APP_DIR}/"
+echo -e "${BLUE}${BOLD}==> Deploying new build to ${APP_DIR}/ ${RESET}"
 sudo rsync -av --delete "${BUILD_DIR}/" "${APP_DIR}/"
 
-echo "Done."
-
+echo -e "${GREEN}${BOLD}==> Deploy complete.${RESET}"
 
