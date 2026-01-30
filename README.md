@@ -25,4 +25,5 @@ Try to stick to these shadcn/ui components as much as possible, and only create 
 ### Deploying to production:
 
 1. Run `sudo bash deploy.sh` to run the deployment script. It will go through the entire test suite and deploy the frontend as well as create a backup of the previous deployment in case a rollback is needed.  
+    This backup is stored at `/var/www/chatdku_webapp_backups`
 2. Visit [ChatDKU](https://chatdku.dukekunshan.edu.cn) in incognito mode. Make sure the chat responses are clear and legible.
