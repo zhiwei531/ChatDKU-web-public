@@ -27,3 +27,27 @@ Try to stick to these shadcn/ui components as much as possible, and only create 
 1. Run `sudo bash deploy.sh` to run the deployment script. It will go through the entire test suite and deploy the frontend as well as create a backup of the previous deployment in case a rollback is needed.  
     This backup is stored at `/var/www/chatdku_webapp_backups`
 2. Visit [ChatDKU](https://chatdku.dukekunshan.edu.cn) in incognito mode. Make sure the chat responses are clear and legible.
+
+### Installing automated deployment services:
+
+There are two systemd services that automate deployment maintenance:
+
+- **`chatdku-deploy`** — Checks if the frontend is present at `/var/www/chatdku`. If it's missing or empty (e.g. after a reboot or accidental deletion), it automatically rebuilds and redeploys. Runs 2 minutes after boot and every 15 minutes thereafter.
+- **`chatdku-cleanup-backups`** — Removes deployment backups in `/var/www/chatdku_webapp_backups` that are older than 30 days. Runs once daily.
+
+To install and activate both services:
+
+```bash
+sudo cp chatdku-deploy.service chatdku-deploy.timer /etc/systemd/system/
+sudo cp chatdku-cleanup-backups.service chatdku-cleanup-backups.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now chatdku-deploy.timer chatdku-cleanup-backups.timer
+```
+
+To check their statuses:
+
+```bash
+systemctl list-timers chatdku-*
+sudo journalctl -u chatdku-deploy.service -e
+sudo journalctl -u chatdku-cleanup-backups.service -e
+```

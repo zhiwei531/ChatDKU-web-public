@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodically check if ChatDKU frontend needs redeployment
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+
+[Install]
+WantedBy=timers.target
