@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getUser } from "@/components/hooks/user";
+import { API_ENDPOINTS } from "@/lib/constants";
 import { getNewSession } from "@/lib/convosNew";
 
 export default function WelcomeBanner() {
@@ -7,15 +7,16 @@ export default function WelcomeBanner() {
 		null,
 	);
 
-	// useEffect(() => {
-	// 	getUser().then(async (user) => {
-	// 		setMe(user);
-	// 		// Create a new session when user is successfully loaded
-	// 		if (user) {
-	// 			await getNewSession();
-	// 		}
-	// 	});
-	// }, []);
+	useEffect(() => {
+		fetch(API_ENDPOINTS.USER, { credentials: "include" })
+			.then((res) => (res.ok ? res.json() : null))
+			.then(async (user) => {
+				setMe(user);
+				if (user) {
+					await getNewSession();
+				}
+			});
+	}, []);
 
 	if (!me)
 		return (
