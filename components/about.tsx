@@ -22,19 +22,7 @@ type AboutProps = {
   showCredits?: boolean;
 };
 
-const About: React.FC<AboutProps> = ({ showCredits = true }) => {
-
-	const [termsAndCondition, setTermsAndCondition] = useState(false);
-	const [remarks, setRemarks] = useState(false);
-
-	const handleTermsAndCondition = () => {
-		setTermsAndCondition(true);
-	};
-
-	const handleRemarks = () => {
-		setRemarks(true);
-	};
-
+const About: React.FC<AboutProps> = () => {
 	return (
 		<>
 			<div className="flex flex-col items-center p-2 mt-4 w-10/12 md:max-w-3xl selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">
@@ -106,10 +94,10 @@ const About: React.FC<AboutProps> = ({ showCredits = true }) => {
 					SET Lab and Office of Undergraduate Advising.
 				</p>
 
-				<div className="flex flex-col sm:flex-row items-center space-x-2 mb-4">
+				<div className="flex flex-col lg:flex-row items-center space-x-2 mb-4 space-y-2 mt-5">
 					{" "}
 					<Dialog>
-						<DialogTrigger asChild className="my-4 cursor-pointer">
+						<DialogTrigger asChild className="cursor-pointer">
 							<Button variant="outline">View Terms and Conditions</Button>
 						</DialogTrigger>
 						<DialogContent className="sm:max-w-[500px] max-h-[90vh]">
@@ -299,14 +287,11 @@ const About: React.FC<AboutProps> = ({ showCredits = true }) => {
 							<ArrowUpRight />
 						</Button>
 					</Link>
-
-					{showCredits && (
-  						<Link href="/team-credits">
-   							<Button variant="outline" className="flex flex-row items-center">
-    							Credits
-  							</Button>
- 						</Link>
-					)}
+					<Link href="/team-credits">
+						<Button variant="outline" className="flex flex-row items-center">
+							Credits
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</>

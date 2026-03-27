@@ -13,6 +13,8 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Link from "next/link";
+import Image from "next/image";
+import { Copyright } from "lucide-react";
 
 export default function AboutPage() {
 	const [termsAccepted, setTermsAccepted] = useState(false);
@@ -34,10 +36,19 @@ export default function AboutPage() {
 	};
 
 	return (
-		<div>
-			<div className="flex flex-col items-center">
-				{/* Without showing "Credits" button */}
-				<About showCredits={true} /> 
+		<div className="relative w-screen h-screen">
+			<div className="absolute left-0 top-0 w-1/2 h-full overflow-hidden">
+			<Image 
+				src={"/campus.jpg"} 
+				alt="Photo of DKU campus." 
+				fill
+				className="object-cover object-bottom md:rounded-r-2xl"
+				sizes="50vw"
+				priority
+			/>
+			</div>
+			<div className="flex flex-col items-center absolute right-0 top-0 w-1/2 h-full overflow-scroll">
+				<About /> 
 				<div className="flex flex-col items-center">
 					<div className="flex items-center space-x-2">
 						<Checkbox
@@ -94,6 +105,7 @@ export default function AboutPage() {
 						</Tooltip>
 					</TooltipProvider>
 				</div>
+				<Link href="https://www.anar-n.com" className="text-xs text-left w-full mt-auto pl-6 pb-2 opacity-25 hidden md:block">Photo © Anar Nyambayar 2025</Link>
 			</div>
 		</div>
 	);
