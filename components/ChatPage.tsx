@@ -242,7 +242,7 @@ export default function ChatPage({ isDev = false }: ChatPageProps) {
 			const termsAccepted = Cookies.get("terms_accepted");
 			if (!termsAccepted) {
 				setIsSessionLoading(false);
-				router.push("/landing");
+				router.push("/login");
 				return;
 			}
 
