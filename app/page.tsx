@@ -20,6 +20,7 @@ import {
 	Globe,
 	MapPin,
 	Layers,
+	ArrowUpRight,
 } from "lucide-react";
 
 export default function IntroPage() {
@@ -32,10 +33,10 @@ export default function IntroPage() {
 						<Image
 							src="/logos/new_logo.svg"
 							alt="ChatDKU"
-							width={28}
-							height={28}
+							width={32}
+							height={32}
 						/>
-						<span className="font-bold text-base">ChatDKU</span>
+						<span className="font-bold text-2xl">ChatDKU</span>
 					</div>
 					<div className="flex items-center gap-1 sm:gap-2">
 						<Link href="/about">
@@ -72,35 +73,59 @@ export default function IntroPage() {
 				<div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-blue-400/10 dark:bg-blue-400/5 blur-3xl -z-10" />
 				<div className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full bg-emerald-400/10 dark:bg-emerald-400/5 blur-3xl -z-10" />
 
-				<div className="max-w-4xl mx-auto text-center">
-					<Badge variant="secondary" className="mb-5 px-3 py-1">
-						DKU Edge Intelligence Lab
-					</Badge>
-					<h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-5 leading-tight">
-						Campus information,{" "}
-						<span className="text-blue-600 dark:text-blue-400">
-							finally in one place.
-						</span>
-					</h1>
-					<p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-						ChatDKU is a campus-specific AI assistant that answers your DKU
-						questions — accurately, privately, and instantly.
-					</p>
-					<div className="flex flex-col sm:flex-row gap-3 justify-center">
-						<Link href="/login">
-							<Button size="lg" className="rounded-full px-8 w-full sm:w-auto">
-								Try ChatDKU <ArrowRight className="ml-2 h-4 w-4" />
-							</Button>
-						</Link>
-						<a href="#how-it-works">
-							<Button
-								variant="outline"
-								size="lg"
-								className="rounded-full px-8 w-full sm:w-auto"
-							>
-								How it works
-							</Button>
-						</a>
+				<div className="flex flex-col md:flex-row mx-auto items-center justify-around text-center">
+					<div>
+						<h1 className="text-4xl drop-shadow-white/10 drop-shadow-2xl sm:text-5xl md:text-6xl font-serif tracking-tight mb-5 leading-tight">
+							University knowledge,
+							<br />
+							<span className=" bg-gradient-to-r  from-blue-500 to-lime-600 dark:from-blue-400 dark:to-lime-500 bg-clip-text text-transparent">
+								finally in one place.
+							</span>
+						</h1>
+					</div>
+					<div className="max-w-xl text-center">
+						<p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+							ChatDKU is the agentic AI assistant that answers all your DKU
+							questions accurately, privately, and instantly.
+						</p>
+						<div className="flex flex-col sm:flex-row gap-3 justify-center">
+							<Link href="/login">
+								<Button
+									size="lg"
+									className="rounded-full text-lg px-8 w-full sm:w-auto sm:px-10 md:py-6"
+								>
+									Try ChatDKU
+								</Button>
+							</Link>
+							<a href="#how-it-works">
+								<Button
+									variant="outline"
+									size="lg"
+									className="rounded-full px-8 w-full sm:w-auto sm:px-10 md:py-6 text-lg"
+								>
+									How it works
+								</Button>
+							</a>
+						</div>
+						<p className="mt-8 mb-2">Brought to you by</p>
+						<div className="flex flex-col space-x-1 items-center">
+							<Link href="https://sites.duke.edu/edgeintelligence/">
+								<Image
+									src={"/logos/BL_Edge Intelligence Lab_04.png"}
+									alt="Logo for EIL."
+									height={30}
+									width={300}
+									className="dark:hidden border -p-2 hover:scale-105 border-transparent hover:border-border hover:shadow-black/5 shadow-transparent rounded-2xl shadow-lg transition-all"
+								/>
+								<Image
+									src={"/logos/BL_Edge Intelligence Lab_06.png"}
+									alt="Logo for EIL."
+									height={30}
+									width={300}
+									className="hidden dark:block border -p-2 hover:scale-105 border-transparent hover:border-border hover:shadow-black/5 shadow-transparent rounded-2xl shadow-lg transition-all"
+								/>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -110,11 +135,8 @@ export default function IntroPage() {
 				<div className="max-w-5xl mx-auto">
 					<div className="text-center mb-10">
 						<h2 className="text-2xl md:text-3xl font-bold mb-2">
-							Sound familiar?
+							Does this sound familiar?
 						</h2>
-						<p className="text-muted-foreground">
-							Every DKU student has been here.
-						</p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 						{[
@@ -138,14 +160,15 @@ export default function IntroPage() {
 								key={title}
 								className="bg-background rounded-2xl p-6 border shadow-sm"
 							>
-								<div className="flex flex-row">
-									<Icon className="h-7 w-7 text-muted-foreground mb-3" />
-									<h3 className="font-semibold mb-1">{title}</h3>
+								<div className="flex flex-row items-center space-x-2">
+									<Icon className="text-muted-foreground" />
+									<h3 className="font-semibold">{title}</h3>
 								</div>
 								<p className="text-sm text-muted-foreground">{desc}</p>
 							</div>
-						))}
-					</div>
+						))}{" "}
+					</div>{" "}
+					<p className="text-center text-lg mt-6">We've all been here.</p>
 				</div>
 			</section>
 
@@ -162,22 +185,22 @@ export default function IntroPage() {
 							</h2>
 							<p className="text-muted-foreground mb-6 leading-relaxed">
 								Unlike general-purpose chatbots, ChatDKU is built on official
-								DKU sources — policies, deadlines, courses, campus resources —
-								and deployed entirely on DKU infrastructure.
+								DKU sources. That's policies, deadlines, courses, bulletins —
+								all deployed entirely on DKU infrastructure.
 							</p>
 							<div className="space-y-3">
 								{[
 									{
 										icon: Shield,
-										text: "Fully on-premise — your queries never leave DKU servers",
+										text: "Fully on-premise, so your queries never leave the internal DKU network.",
 									},
 									{
 										icon: BookOpen,
-										text: "Grounded in official DKU sources, not the open web",
+										text: "Grounded in official, up-to-date DKU sources, not the open web.",
 									},
 									{
 										icon: Users,
-										text: "Built for students, faculty, and staff",
+										text: "Built for students, faculty, and staff.",
 									},
 								].map(({ icon: Icon, text }) => (
 									<div key={text} className="flex items-start gap-3">
@@ -192,10 +215,7 @@ export default function IntroPage() {
 						<div className="bg-muted/40 rounded-3xl p-6 border space-y-3">
 							<div className="bg-background rounded-2xl p-4 border text-sm">
 								<p className="text-muted-foreground text-xs mb-1.5">You</p>
-								<p>
-									&ldquo;What&apos;s the deadline to drop a course this
-									semester?&rdquo;
-								</p>
+								<p>When can I declare my major?</p>
 							</div>
 							<div className="bg-blue-50 dark:bg-blue-950/40 rounded-2xl p-4 border border-blue-200/50 dark:border-blue-800/50 text-sm">
 								<p className="text-blue-600 dark:text-blue-400 text-xs mb-1.5 flex items-center gap-1.5">
@@ -208,11 +228,19 @@ export default function IntroPage() {
 									ChatDKU
 								</p>
 								<p className="leading-relaxed">
-									The deadline to drop without a &ldquo;W&rdquo; grade is{" "}
-									<strong>end of Week 4.</strong> After that, drops appear on
-									your transcript. Check the Academic Calendar for exact dates.{" "}
+									You can declare your major during the Spring term of your
+									sophomore year at Duke Kunshan University (DKU).
+									<br />
+									Prior to declaring, you should work with your academic advisor
+									to develop a long-range academic plan that aligns with your
+									intended major. It is recommended to explore different major
+									options during your first year to make an informed decision.
+									For more information, consult the Office of Undergraduate
+									Advising or review the DKU Undergraduate Bulletin.
+									<br />
 									<span className="text-xs text-muted-foreground">
-										[Source: DKU Academic Policies §3.2]
+										Reference: <br />• DKU Undergraduate Studies Bulletin (Page
+										52) <br />• Advising FAQ (12-19-24 Update) (Page 5)
 									</span>
 								</p>
 							</div>
@@ -240,29 +268,29 @@ export default function IntroPage() {
 					<div className="space-y-2.5 max-w-3xl mx-auto">
 						{[
 							{
-								layer: "Client Interface",
-								desc: "Web app — the interface you're using right now",
+								layer: "Modern Interface",
+								desc: "Next.js powers an accessible UI for both mobile and desktop.",
 								color:
 									"bg-purple-50 dark:bg-purple-950/30 border-purple-200 dark:border-purple-800/40",
 								dot: "bg-purple-500",
 							},
 							{
-								layer: "Backend Gateway",
-								desc: "Authentication, routing, and request handling",
+								layer: "Secure Backend",
+								desc: "Authentication with Duke NetID, secure routing, and request handling.",
 								color:
 									"bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/40",
 								dot: "bg-blue-500",
 							},
 							{
-								layer: "AI Agent Core",
-								desc: "Planning, retrieval, reasoning, synthesis, and memory",
+								layer: "Agentic RAG Core",
+								desc: "ChatDKU features advanced AI techniques for response planning, hybrid retrieval mechanisms, reasoning, synthesis, and memory.",
 								color:
 									"bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/40",
 								dot: "bg-emerald-500",
 							},
 							{
 								layer: "Knowledge Base",
-								desc: "Indexed DKU documents — vector + keyword searchable",
+								desc: "Exclusive information from a variety of DKU documents, stored as vector embeddings and a relational database.",
 								color:
 									"bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-800/40",
 								dot: "bg-orange-500",
@@ -287,9 +315,9 @@ export default function IntroPage() {
 					</div>
 
 					<p className="mt-8 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
-						Before any query arrives, an offline ingestion pipeline parses
-						official DKU sources, chunks and embeds them, and builds searchable
-						indexes. At runtime,{" "}
+						We use an offline ingestion pipeline to parse official DKU sources,
+						vector-embed them in chunks, to build an efficiently searchable
+						index. At query time,{" "}
 						<strong className="text-foreground">
 							vector search + keyword search + reranking
 						</strong>{" "}
@@ -321,7 +349,7 @@ export default function IntroPage() {
 								step: "1",
 								label: "Query",
 								icon: Search,
-								desc: "Your question enters the system",
+								desc: "Your question is sent to the system",
 							},
 							{
 								step: "2",
@@ -339,7 +367,7 @@ export default function IntroPage() {
 								step: "4",
 								label: "Refine",
 								icon: RefreshCw,
-								desc: "If not — rewrite query & retrieve again",
+								desc: "If not, rewrite query & retrieve again",
 							},
 							{
 								step: "5",
@@ -379,7 +407,7 @@ export default function IntroPage() {
 							No hallucinations, no guessing.
 						</strong>{" "}
 						Only when evidence passes the sufficiency check does the synthesizer
-						produce the final response — complete with citations for manual
+						produce the final response, complete with citations for manual
 						review.
 					</div>
 				</div>
@@ -390,10 +418,10 @@ export default function IntroPage() {
 				<div className="max-w-5xl mx-auto">
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
 						<div className="space-y-4">
-							<div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 flex items-center justify-center">
-								<BarChart3 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+							<div className="rounded-2xl bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 flex items-center justify-center px-2 py-4">
+								<BarChart3 className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />{" "}
+								<h3 className="text-2xl mx-1">SeekBench</h3>
 							</div>
-							<Badge variant="outline">SeekBench</Badge>
 							<h2 className="text-2xl md:text-3xl font-bold">
 								Not just an answer machine.
 							</h2>
@@ -518,13 +546,7 @@ export default function IntroPage() {
 			<footer className="border-t py-6 px-4">
 				<div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
 					<div className="flex items-center gap-2">
-						<Image
-							src="/logos/new_logo.svg"
-							alt="ChatDKU"
-							width={16}
-							height={16}
-						/>
-						<span>ChatDKU — DKU Edge Intelligence Lab © 2026</span>
+						<span>DKU Edge Intelligence Lab © 2026</span>
 					</div>
 					<div className="flex gap-4">
 						<Link
