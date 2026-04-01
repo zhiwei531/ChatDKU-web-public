@@ -25,6 +25,9 @@ const en = {
   "home.hero.watchYouTube": "Watch on YouTube",
   "home.hero.videoFallback": "Your browser does not support the video tag.",
 
+  // Home page - Partners
+  "home.partners.label": "In Partnership With",
+
   // Home page - Problem
   "home.problem.title": "Does this sound familiar?",
   "home.problem.pdf.title": "Lost in PDFs",

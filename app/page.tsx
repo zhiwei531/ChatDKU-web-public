@@ -162,49 +162,65 @@ export default function IntroPage() {
 				</div>
 			</section>
 
-			{/* ── The Problem ── */}
-			<section className="py-16 px-4 bg-from-muted/30 bg-gradient-to-b to-lime-500/5">
-				<div className="max-w-5xl mx-auto">
-					<div className="text-center mb-10">
-						<h2 className="text-2xl md:text-3xl font-bold mb-2">
-							{t("home.problem.title")}
-						</h2>
-					</div>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-						{[
-							{
-								icon: FileText,
-								title: t("home.problem.pdf.title"),
-								desc: t("home.problem.pdf.desc"),
-							},
-							{
-								icon: Globe,
-								title: t("home.problem.tabs.title"),
-								desc: t("home.problem.tabs.desc"),
-							},
-							{
-								icon: MapPin,
-								title: t("home.problem.office.title"),
-								desc: t("home.problem.office.desc"),
-							},
-						].map(({ icon: Icon, title, desc }) => (
-							<div
-								key={title}
-								className="bg-background rounded-2xl p-6 border shadow-sm"
-							>
-								<div className="flex flex-row items-center space-x-2">
-									<Icon className="text-muted-foreground" />
-									<h3 className="font-semibold">{title}</h3>
-								</div>
-								<p className="text-sm text-muted-foreground">{desc}</p>
-							</div>
-						))}{" "}
-					</div>{" "}
-					<p className="text-center italic text-lg mt-6">
-						{t("home.problem.coda")}
+			{/* ── Partner Logos ── */}
+			<section className=" text-center">
+				<div className="mx-auto md:px-20 flex flex-col items-center gap-4 bg-gradient-to-r dark:from-transparent from-blue-400 via-blue-600 to-blue-400 py-5 ">
+					<p className="text-white text-sm tracking-wide uppercase font-serif">
+						{t("home.partners.label")}
 					</p>
+					<Image
+						src="/partner-logos.png"
+						alt="Partner logos"
+						width={800}
+						height={100}
+						className="w-full max-w-2xl h-auto object-contain opacity-90"
+					/>
 				</div>
 			</section>
+
+			{/* ── The Problem ── */}
+			{/* <section className="py-16 px-4 from-neutral-500/30 bg-gradient-to-b to-lime-500/5"> */}
+			{/* 	<div className="max-w-5xl mx-auto"> */}
+			{/* 		<div className="text-center mb-10"> */}
+			{/* 			<h2 className="text-2xl md:text-3xl font-bold mb-2"> */}
+			{/* 				{t("home.problem.title")} */}
+			{/* 			</h2> */}
+			{/* 		</div> */}
+			{/* 		<div className="grid grid-cols-1 md:grid-cols-3 gap-4"> */}
+			{/* 			{[ */}
+			{/* 				{ */}
+			{/* 					icon: FileText, */}
+			{/* 					title: t("home.problem.pdf.title"), */}
+			{/* 					desc: t("home.problem.pdf.desc"), */}
+			{/* 				}, */}
+			{/* 				{ */}
+			{/* 					icon: Globe, */}
+			{/* 					title: t("home.problem.tabs.title"), */}
+			{/* 					desc: t("home.problem.tabs.desc"), */}
+			{/* 				}, */}
+			{/* 				{ */}
+			{/* 					icon: MapPin, */}
+			{/* 					title: t("home.problem.office.title"), */}
+			{/* 					desc: t("home.problem.office.desc"), */}
+			{/* 				}, */}
+			{/* 			].map(({ icon: Icon, title, desc }) => ( */}
+			{/* 				<div */}
+			{/* 					key={title} */}
+			{/* 					className="bg-background rounded-2xl p-6 border shadow-sm" */}
+			{/* 				> */}
+			{/* 					<div className="flex flex-row items-center space-x-2"> */}
+			{/* 						<Icon className="text-muted-foreground" /> */}
+			{/* 						<h3 className="font-semibold">{title}</h3> */}
+			{/* 					</div> */}
+			{/* 					<p className="text-sm text-muted-foreground">{desc}</p> */}
+			{/* 				</div> */}
+			{/* 			))}{" "} */}
+			{/* 		</div>{" "} */}
+			{/* 		<p className="text-center italic text-lg mt-6"> */}
+			{/* 			{t("home.problem.coda")} */}
+			{/* 		</p> */}
+			{/* 	</div> */}
+			{/* </section> */}
 
 			{/* ── The Solution ── */}
 			<section className="py-16 px-4" id="agent">

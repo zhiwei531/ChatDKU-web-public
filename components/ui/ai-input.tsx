@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/components/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { useAutoResizeTextarea } from "@/components/hooks/use-auto-resize-textarea";
+import { useLanguage } from "@/components/language-provider";
 
 export function AIInput({
   id = "ai-input",
@@ -39,6 +40,7 @@ export function AIInput({
   });
   const [inputValue, setInputValue] = useState("");
   const [isThinking, setIsThinking] = useState(thinkingMode || false);
+  const { t } = useLanguage();
 
   const inputButtonStyle = cn(
     "flex items-center justify-around gap-1 p-2 text-sm min-w-[45px] min-h-[45px] rounded-4xl cursor-pointer border-transparent hover:border-foreground/10 border-1 hover:shadow-md active:text-foreground active:bg-foreground/10 transition-all duration-200",
@@ -122,7 +124,7 @@ export function AIInput({
           <Textarea
             autoFocus
             id={id}
-            placeholder={placeholder}
+            placeholder={t("chat.placeholder")}
             className={cn(
               "placeholder:text-black/40 dark:placeholder:text-white/40",
               "text-black dark:text-white text-wrap",

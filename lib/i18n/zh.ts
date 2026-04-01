@@ -25,6 +25,9 @@ const zh = {
   "home.hero.watchYouTube": "在 YouTube 上观看",
   "home.hero.videoFallback": "您的浏览器不支持视频标签。",
 
+  // Home page - Partners
+  "home.partners.label": "合作伙伴",
+
   // Home page - Problem
   "home.problem.title": "这些场景是否似曾相识？",
   "home.problem.pdf.title": "迷失在PDF中",

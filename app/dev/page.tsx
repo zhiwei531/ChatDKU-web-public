@@ -10,6 +10,7 @@ import { Navbar } from "@/components/navbar";
 import { PromptRecs } from "@/components/prompt_recs";
 import WelcomeBanner from "@/components/WelcomeBanner";
 import Side from "@/components/side";
+import { useLanguage } from "@/components/language-provider";
 
 const configureMarked = () => {
 	marked.setOptions({
@@ -61,7 +62,7 @@ const ensureSearchLoaderStyles = () => {
 	document.head.appendChild(style);
 };
 
-const getSearchLoaderHTML = (): string => {
+const getSearchLoaderHTML = (searchingText: string): string => {
 	const search =
 		'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="absolute inset-0 icon-cycle icon-1"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>';
 	const fileSearch =
@@ -83,7 +84,7 @@ const getSearchLoaderHTML = (): string => {
         ${sparkles}
       </div>
       <div class="text-xs sm:text-sm leading-none tracking-tight">
-        <span class="opacity-80">Searching relevant documents</span>
+        <span class="opacity-80">${searchingText}</span>
         <span class="ml-1 inline-flex align-middle">
           <span class="dot"></span>
           <span class="dot"></span>
@@ -210,6 +211,7 @@ export default function Dev() {
 	const [inputValue, setInputValue] = useState("");
 	const [apiEndpoint, setApiEndpoint] = useState(getStoredEndpoint());
 	const router = useRouter();
+	const { t } = useLanguage();
 
 	useEffect(() => {
 		configureMarked();
@@ -360,7 +362,6 @@ export default function Dev() {
 					)}
 					<div>
 						<AIInput
-							placeholder="Type your message..."
 							thinkingMode={thinkingMode}
 							onThinkingModeChange={(value) => setThinkingMode(value)}
 							searchMode={searchMode}
@@ -382,7 +383,7 @@ export default function Dev() {
 								);
 
 								ensureSearchLoaderStyles();
-								const botMessage = addbot(getSearchLoaderHTML(), "text-sm");
+								const botMessage = addbot(getSearchLoaderHTML(t("chat.searching")), "text-sm");
 
 								try {
 									const fetchChat = async () => {
@@ -457,9 +458,9 @@ export default function Dev() {
 										feedbackDiv.className = "ml-4 mb-2";
 										const feedbackContent = `
                     <div class="flex items-center gap-2 text-left">
-                      <span class="text-sm text-muted-foreground">Was this response helpful?</span>
-                      <button class="feedback-yes px-2 py-1 text-sm rounded-md bg-secondary/50 hover:bg-secondary">Yes</button>
-                      <button class="feedback-no px-2 py-1 text-sm rounded-md bg-secondary/50 transition-all duration-300 hover:bg-red-600 hover:text-white">No</button>
+                      <span class="text-sm text-muted-foreground">${t("chat.feedbackQuestion")}</span>
+                      <button class="feedback-yes px-2 py-1 text-sm rounded-md bg-secondary/50 hover:bg-secondary">${t("chat.feedbackYes")}</button>
+                      <button class="feedback-no px-2 py-1 text-sm rounded-md bg-secondary/50 transition-all duration-300 hover:bg-red-600 hover:text-white">${t("chat.feedbackNo")}</button>
                     </div>
                   `;
 										feedbackDiv.innerHTML = feedbackContent;
@@ -471,7 +472,7 @@ export default function Dev() {
 										yesButton?.addEventListener("click", () => {
 											handleFeedback(value, data, "helpful");
 											feedbackDiv.innerHTML =
-												'<span class="text-sm text-muted-foreground">Thanks for your feedback!</span>';
+												`<span class="text-sm text-muted-foreground">${t("chat.feedbackThanks")}</span>`;
 										});
 
 										noButton?.addEventListener("click", () => {
@@ -479,17 +480,17 @@ export default function Dev() {
                       <div class="fixed inset-0 bg-background/80 backdrop-blur-sm z-50">
                         <div class="fixed inset-0 flex items-center justify-center">
                           <div class="dialog bg-background border shadow-lg rounded-lg w-[90%] max-w-md p-6">
-                            <h3 class="text-lg font-semibold mb-4">Sorry to hear that. Can you tell us why?</h3>
+                            <h3 class="text-lg font-semibold mb-4">${t("chat.feedbackWhyTitle")}</h3>
                             <div class="feedback-options space-y-2" id="reason-options">
-                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_correct">Not Correct</button>
-                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_clear">Not Clear</button>
-                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_relevant">Not Relevant</button>
-                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="other">Other</button>
+                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_correct">${t("chat.feedbackNotCorrect")}</button>
+                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_clear">${t("chat.feedbackNotClear")}</button>
+                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="not_relevant">${t("chat.feedbackNotRelevant")}</button>
+                              <button class="reason-btn w-full text-left px-3 py-2 rounded-md border hover:bg-accent text-foreground" data-reason="other">${t("chat.feedbackOther")}</button>
                             </div>
-                            <textarea id="custom-reason" class="w-full mt-4 p-2 rounded-md border bg-background text-foreground hidden" rows="5" placeholder="Please describe the issue"></textarea>
+                            <textarea id="custom-reason" class="w-full mt-4 p-2 rounded-md border bg-background text-foreground hidden" rows="5" placeholder="${t("chat.feedbackCustomPlaceholder")}"></textarea>
                             <div class="flex justify-end mt-6 space-x-2">
-                              <button id="submit-feedback" class="btn px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground hover:bg-primary/90">Submit</button>
-                              <button id="cancel-feedback" class="btn px-4 py-2 text-sm rounded-md bg-secondary text-secondary-foreground hover:bg-destructive hover:text-destructive-foreground">Cancel</button>
+                              <button id="submit-feedback" class="btn px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground hover:bg-primary/90">${t("chat.feedbackSubmit")}</button>
+                              <button id="cancel-feedback" class="btn px-4 py-2 text-sm rounded-md bg-secondary text-secondary-foreground hover:bg-destructive hover:text-destructive-foreground">${t("chat.feedbackCancel")}</button>
                             </div>
                           </div>
                         </div>
@@ -536,16 +537,16 @@ export default function Dev() {
 
 												if (selectedReason === "other" && !reasonToSend) {
 													customReason.classList.add("border-destructive");
-													customReason.placeholder = "Please write something!";
+													customReason.placeholder = t("chat.feedbackCustomRequired");
 													return;
 												}
 
 												handleFeedback(value, data, reasonToSend);
-												feedbackDiv.innerHTML = `<span class=\"text-sm text-muted-foreground\">Thanks for your feedback!</span>`;
+												feedbackDiv.innerHTML = `<span class="text-sm text-muted-foreground">${t("chat.feedbackThanks")}</span>`;
 											});
 
 											cancelBtn?.addEventListener("click", () => {
-												feedbackDiv.innerHTML = `<span class=\"text-sm text-muted-foreground\">Feedback canceled.</span>`;
+												feedbackDiv.innerHTML = `<span class="text-sm text-muted-foreground">${t("chat.feedbackCanceled")}</span>`;
 											});
 										});
 
