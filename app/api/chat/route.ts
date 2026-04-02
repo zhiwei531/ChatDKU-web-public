@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const BACKEND_BASE =
-  process.env.BACKEND_BASE_URL || "https://chatdku.dukekunshan.edu.cn:8999";
+	process.env.BACKEND_BASE_URL || "https://chatdku.dukekunshan.edu.cn:8999";
 const AUTH_URL = `${BACKEND_BASE}/auth/get-token`;
 const CHAT_URL = `${BACKEND_BASE}/api/chat`;
 
@@ -42,16 +42,16 @@ async function getJwt(): Promise<string> {
 
 	cachedToken = token;
 
-	// Try to extract expiry from JWT payload; default to 55 minutes
+	// Try to extract expiry from JWT payload; default to 30 minutes
 	try {
 		const payload = JSON.parse(atob(token.split(".")[1]));
 		if (payload.exp) {
 			tokenExpiresAt = payload.exp * 1000;
 		} else {
-			tokenExpiresAt = Date.now() + 55 * 60 * 1000;
+			tokenExpiresAt = Date.now() + 30 * 60 * 1000;
 		}
 	} catch {
-		tokenExpiresAt = Date.now() + 55 * 60 * 1000;
+		tokenExpiresAt = Date.now() + 30 * 60 * 1000;
 	}
 
 	return token;
@@ -120,7 +120,11 @@ export async function POST(request: Request) {
 			}),
 		});
 
-		if (backendResponse.status === 401 || backendResponse.status === 403) {
+		if (
+			backendResponse.status === 401 ||
+			backendResponse.status === 400 ||
+			backendResponse.status === 403
+		) {
 			// Token expired or invalid — clear cache and retry once
 			cachedToken = null;
 			tokenExpiresAt = 0;

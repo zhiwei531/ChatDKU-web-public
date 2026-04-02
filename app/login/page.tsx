@@ -2,7 +2,7 @@
 import { TermsButton } from "@/components/about";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
@@ -32,6 +32,15 @@ export default function LoginPage() {
 
 	const router = useRouter();
 
+	useEffect(() => {
+		if (
+			Cookies.get("chatdku_token") &&
+			!(process.env.NODE_ENV === "development")
+		) {
+			router.replace("/app");
+		}
+	}, [router]);
+
 	const handleProceed = async () => {
 		if (termsAccepted) {
 			setIsLoading(true);
@@ -42,7 +51,14 @@ export default function LoginPage() {
 				const res = await fetch("/api/auth/token");
 				if (!res.ok) throw new Error(`Token fetch failed: ${res.status}`);
 				const { token } = await res.json();
-				Cookies.set("chatdku_token", token, { expires: 1 });
+				let expires: number | Date = 1;
+				try {
+					const payload = JSON.parse(atob(token.split(".")[1]));
+					if (payload.exp) {
+						expires = new Date(payload.exp * 1000);
+					}
+				} catch {}
+				Cookies.set("chatdku_token", token, { expires });
 			} catch (e) {
 				console.error("JWT fetch failed:", e);
 				toast.error(t("login.serverError"));

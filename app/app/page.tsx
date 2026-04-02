@@ -270,10 +270,11 @@ export default function App() {
 				messageElement.innerHTML = `
         <div class="flex flex-col ${isUser ? (isDev ? "items-end max-w-[85%] sm:max-w-[80%]" : "items-end max-w-[95%] sm:max-w-[85%]") : "items-start w-full sm:max-w-[85%]"}">
           <div class="flex flex-col ${isUser ? "lg:flex-row-reverse" : "lg:flex-row"} gap-3 px-4 py-2 ${className} rounded-3xl w-full overflow-hidden">
-            ${isUser
-						? ""
-						: '<div class="flex-shrink-0"><div class="w-8 h-8 rounded-full bg-transparent flex items-center justify-center"><img src="/logos/new_logo.svg" class="block dark:hidden p-1.5" alt="Logo"/><img src="/logos/new_logo.svg" class="hidden dark:block p-1.5" alt="Logo"/></div></div>'
-					}
+            ${
+							isUser
+								? ""
+								: '<div class="flex-shrink-0"><div class="w-8 h-8 rounded-full bg-transparent flex items-center justify-center"><img src="/logos/new_logo.svg" class="block dark:hidden p-1.5" alt="Logo"/><img src="/logos/new_logo.svg" class="hidden dark:block p-1.5" alt="Logo"/></div></div>'
+						}
             <div class="${isUser ? "text-right" : "text-left"} overflow-hidden">
               <div class="text-foreground break-words overflow-wrap-anywhere markdown-content ${!isUser ? "text-[0.9375rem]" : ""}">${sanitizedContent}</div>
             </div>
@@ -343,7 +344,7 @@ export default function App() {
 						chatLog.innerHTML = "";
 					}
 				}}
-				onConversationSelect={() => { }}
+				onConversationSelect={() => {}}
 			/>
 			<div className="flex flex-col min-h-screen relative selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">
 				<header className="sticky top-0 z-20 w-full">
@@ -358,10 +359,11 @@ export default function App() {
 				</main>
 
 				<div
-					className={`w-full max-w-[95vw] p-2 pt-0 transition-all duration-300 ${isChatboxCentered
+					className={`w-full max-w-[95vw] p-2 pt-0 transition-all duration-300 ${
+						isChatboxCentered
 							? "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 							: "fixed bottom-0 left-1/2 -translate-x-1/2 rounded-t-3xl backdrop-blur-md md:backdrop-blur-none z-10"
-						}`}
+					}`}
 				>
 					{showStarter && (
 						<div className="w-full flex justify-center">
