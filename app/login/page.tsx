@@ -124,7 +124,10 @@ export default function LoginPage() {
 								<div className="flex flex-col sm:flex-row items-center space-x-2 space-y-2 mt-4">
 									<Button
 										variant="secondary"
-										className="rounded-full p-6 border border-foreground/10"
+										className={
+											// "rounded-full p-6 border border-foreground/10 " +
+											"rounded-full p-6 -mt-2 bg-blue-700 text-white hover:bg-blue-500 border border-blue-300/30 disabled:bg-transparent disabled:text-foreground" // This is only for Chancellor's Office demo
+										}
 										disabled={!termsAccepted || isLoading}
 										onClick={handleProceed}
 									>
@@ -132,23 +135,26 @@ export default function LoginPage() {
 											<Loader2 className="animate-spin" />
 										) : (
 											<p>
-												{t("login.guest")} <span className="font-bold">{t("login.guestBold")}</span>
+												{t("login.guest")}{" "}
+												<span className="font-bold">
+													{t("login.guestBold")}
+												</span>
 											</p>
 										)}
 									</Button>
-									<p className="opacity-80 pb-2">{t("login.or")}</p>
-									<Link href={"https://chatdku.dukekunshan.edu.cn/"}>
-										<Button
-											variant="default"
-											className="rounded-full p-6 -mt-2 bg-blue-700 text-white hover:bg-blue-500 border border-blue-300/30"
-											disabled={!termsAccepted || isLoading}
-										>
-											<p>
-												{t("login.netid")}{" "}
-												<span className="font-bold">{t("login.netidBold")}</span>
-											</p>
-										</Button>
-									</Link>
+									{/* <p className="opacity-80 pb-2">{t("login.or")}</p> */}
+									{/* <Link href={"https://chatdku.dukekunshan.edu.cn/"}> */}
+									{/* 	<Button */}
+									{/* 		variant="default" */}
+									{/* 		className="rounded-full p-6 -mt-2 bg-blue-700 text-white hover:bg-blue-500 border border-blue-300/30" */}
+									{/* 		disabled={!termsAccepted || isLoading} */}
+									{/* 	> */}
+									{/* 		<p> */}
+									{/* 			{t("login.netid")}{" "} */}
+									{/* 			<span className="font-bold">{t("login.netidBold")}</span> */}
+									{/* 		</p> */}
+									{/* 	</Button> */}
+									{/* </Link> */}
 								</div>
 							</TooltipTrigger>
 							{!termsAccepted && (

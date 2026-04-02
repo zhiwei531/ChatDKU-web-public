@@ -224,7 +224,8 @@ export default function App() {
 	useEffect(() => {
 		configureMarked();
 		const termsAccepted = Cookies.get("terms_accepted");
-		if (!termsAccepted) {
+		const token = Cookies.get("chatdku_token");
+		if (!termsAccepted || (!token && !isDev)) {
 			router.push("/login");
 		}
 	}, [router]);
@@ -392,7 +393,10 @@ export default function App() {
 								);
 
 								ensureSearchLoaderStyles();
-								const botMessage = addbot(getSearchLoaderHTML(t("chat.searching")), "text-sm");
+								const botMessage = addbot(
+									getSearchLoaderHTML(t("chat.searching")),
+									"text-sm",
+								);
 
 								try {
 									const fetchChat = async () => {
@@ -482,8 +486,7 @@ export default function App() {
 
 										yesButton?.addEventListener("click", () => {
 											handleFeedback(value, data, "helpful");
-											feedbackDiv.innerHTML =
-												`<span class="text-sm text-muted-foreground">${t("chat.feedbackThanks")}</span>`;
+											feedbackDiv.innerHTML = `<span class="text-sm text-muted-foreground">${t("chat.feedbackThanks")}</span>`;
 										});
 
 										noButton?.addEventListener("click", () => {
@@ -548,7 +551,9 @@ export default function App() {
 
 												if (selectedReason === "other" && !reasonToSend) {
 													customReason.classList.add("border-destructive");
-													customReason.placeholder = t("chat.feedbackCustomRequired");
+													customReason.placeholder = t(
+														"chat.feedbackCustomRequired",
+													);
 													return;
 												}
 
